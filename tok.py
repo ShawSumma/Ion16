@@ -9,6 +9,8 @@ def make(sin): # this is the tokenizer, sin is the string in
             if flags['dstr']:
                 flags['dstr'] = False
                 ret.append(['str',cur[1:]])
+                cur = ''
+                i = ''
             else:
                flags['dstr'] = True
         if i in [' ',';','|','(',')',',','{','}','='] and flags['dstr'] == False: # checks if the next charactor is the end of an expression

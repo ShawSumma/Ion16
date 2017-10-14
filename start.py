@@ -24,6 +24,8 @@ def run(data):
                 run([cmd[2]])
         if cmd[0] == 'int':
             return float(cmd[1])
+        if cmd[0] == 'str':
+            return cmd[1]
         if cmd[0] == 'name':
             return ionlocals[cmd[1]]
         if cmd[0] == 'bin':

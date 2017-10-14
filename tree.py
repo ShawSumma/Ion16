@@ -79,7 +79,7 @@ def tree(toksls): #make the tree from the tokens, toksls is the tokens list
                     pl = end # jump to the end of the function
                 else:
                     subret += [t] # add the token
-            elif t[0] in ['int','hex','bin']: # is it a number
+            elif t[0] in ['int','hex','bin','str']: # is it a number
                 subret += [t] # add the number
             pl += 1 #tick the place in line
         ret = ret + [subret] if subret != [] else ret # add the line if it is not nothing
