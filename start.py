@@ -83,7 +83,6 @@ def run(data):
                 return ret
             if cmd[1] == 'zero':
                 return 0
-    return run(cmd)
 file1 = open('test.txt','r').read().replace('\n',"")
 ##print(file1)
 file2 = tok.make(file1)

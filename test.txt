@@ -1,5 +1,2 @@
-set(x,7);
-while not(is(x, -1)){
-  print(x);
-  set(x,add(x,-1));
-}
+set(x,15);
+print(x);
