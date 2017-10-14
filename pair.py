@@ -19,7 +19,8 @@ class ion:
         return pair(sts,'{}')
     def pairfn(x):
         sts = [i[1] for i in x]
-        return pair(sts,'()')
+        p = pair(sts,('(',')'))
+        return p
     def flat(x):
         sts = [i[1] for i in x]
         return pair(sts,'{}',depth=1)

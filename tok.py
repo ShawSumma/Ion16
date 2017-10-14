@@ -5,7 +5,6 @@ def make(sin): # this is the tokenizer, sin is the string in
     ret = [] # retunr this
     flags = [] # flags to see if it is in a string or other special case
     for i in sin:
-
         if i == '"':
             if 'dstr' in flags:
                 del flags['dstr']
@@ -14,13 +13,13 @@ def make(sin): # this is the tokenizer, sin is the string in
                flags += ['dstr']
 
         if i in [' ',';','|','(',')',',','{','}','='] and len(flags) == 0: # checks if the next charactor is the end of an expression
-            if re.match(r'(?i)([a-z]|\*|\+|\-|\\|\^|\%|\$|\#|\@|\!)+([0-9])*',cur) != None: # if it matches the string classs
-                ret.append(['name',cur])
-                cur = ''
-            elif re.match(r'(?i)(0x|[1-9]|\.)([0-9]|\.)*',cur) != None: # if it mathces the int class
+            if re.match(r'(?i)\-?([1-9])+',cur) != None: # if it mathces the int class
                 if cur[0] == '.':
                     cur = '0'+cur
                 ret.append(['int',cur])
+                cur = ''
+            elif re.match(r'(?i)([a-z]|\*|\+|\-|\\|\^|\%|\$|\#|\@|\!)+([0-9])*',cur) != None: # if it matches the string classs
+                ret.append(['name',cur])
                 cur = ''
             elif re.match(r'(?i)0h([0-9]|[a-f]|\.)*',cur) != None: # if it matches the hex class
                 ret.append(['hex',cur])

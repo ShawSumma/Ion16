@@ -28,6 +28,7 @@ def tree(toksls): #make the tree from the tokens, toksls is the tokens list
         toks = toksls[lpl] # the current line of tokens
         subret = []# sub return data
         pl = 0 # place in the current tokens
+        ##print(toks)
         parens = pair.ion.pairfn(toks)
         while pl < len(toks): # iterate through the current line of tokens by number
             t = toks[pl] # the current token
@@ -46,7 +47,7 @@ def tree(toksls): #make the tree from the tokens, toksls is the tokens list
                 for argt in argst+[]: # loop through argst as argt
                     if argt[0] == 'comma': # if its a new argumnet
                         if len(carg) == 1: # if carg is a reular arg
-                            iargs += [carg] # add the current arg to iargs,
+                            iargs += [carg] # add the current a rg to iargs,
                         elif len(carg) == 3: # if carg is a keyword arg
                             ikwargs[carg[0]] = carg[2] # add the current arg to iargs
                         carg = []
@@ -61,9 +62,17 @@ def tree(toksls): #make the tree from the tokens, toksls is the tokens list
                 subret += [['function',fnname[1],[iargs,ikwargs],tree(codes)]] #add the function to the sub return value
                 lpl = pairs[lpl]
                 pl = len(toks) #end the iteraing current by number line loop
+            elif t in [['name','if'],['name','while']]:
+                whatdat = tree([toks[pl+1:-1]])
+                codes = toksls[lpl+1:pairs[lpl]]
+                codes = tree(codes)
+                subret += [[t[1],whatdat,codes]]
+                lpl = pairs[lpl]
+                pl = len(toks)
             elif t[0] == 'name':
                 if len(toks) > pl+1 and  toks[pl+1][0] == 'lparen':
                     beg = pl+2
+                    ##print(parens,pl+1)
                     end = parens[pl+1]
                     #print(toks[beg:end])
                     subret += [['call',t[1],tree([toks[beg:end]])]] # add the function and its tree
