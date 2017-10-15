@@ -3,17 +3,25 @@ import pair
 def make(sin): # this is the tokenizer, sin is the string in
     cur = '' # the current charactor
     ret = [] # retunr this
-    flags = {'dstr':False} # flags to see if it is in a string or other special case
+    flags = {'dstr':False,'sstr':False} # flags to see if it is in a string or other special case
     for i in sin:
         if i == '"':
-            if flags['dstr']:
+            if flags['dstr'] and not flags['sstr']:
                 flags['dstr'] = False
                 ret.append(['str',cur[1:]])
                 cur = ''
                 i = ''
             else:
                flags['dstr'] = True
-        if i in [' ',';','|','(',')',',','{','}','='] and flags['dstr'] == False: # checks if the next charactor is the end of an expression
+        if i == "'" and not flags['dstr']:
+           if flags['sstr']:
+               flags['sstr'] = False
+               ret.append(['str',cur[1:]])
+               cur = ''
+               i = ''
+           else:
+              flags['sstr'] = True
+        if i in [' ',';','|','(',')',',','{','}','='] and flags['dstr'] == False and flags['sstr'] == False: # checks if the next charactor is the end of an expression
             if re.match(r'(?i)\-?([1-9])+',cur) != None: # if it mathces the int class
                 if cur[0] == '.':
                     cur = '0'+cur

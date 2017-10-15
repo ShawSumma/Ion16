@@ -92,7 +92,7 @@ file2 = tok.make(file1)
 file3 = tree.split(file2)
 #print(file3)
 file4 = tree.tree(file3)
-##lv.view(file4) # view the tree
+lv.view(file4) # view the tree
 ##print(file4)
 run(file4)
 ##print(ionlocals)

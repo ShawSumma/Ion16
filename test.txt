@@ -1,2 +1,5 @@
-set(x,"meow");
-print(x);
+set(x,0);
+while not(is(x,2)){
+  print(x);
+  set(x,add(x,1))
+}
